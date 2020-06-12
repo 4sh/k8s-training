@@ -32,6 +32,9 @@ spec:
               port: 9000
             initialDelaySeconds: 10
             periodSeconds: 10
+          env:
+            - name: ENV
+              value: @ME
           ports:
             - containerPort: 9000
 ---
