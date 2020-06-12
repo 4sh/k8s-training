@@ -5,6 +5,7 @@ val kotlinVersion = "1.3.50"
 val http4kVersion = "3.196.0"
 val log4jVersion = "2.12.1"
 val jacksonVersion = "2.10.0"
+val autoKonfigVersion = "1.0.0"
 val jaxbVersion = "2.3.0"
 val kotestVersion = "4.0.5"
 
@@ -44,6 +45,7 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-core:$jacksonVersion")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonVersion")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-joda:$jacksonVersion")
+    implementation("dev.nohus:AutoKonfig:$autoKonfigVersion")
 
     testImplementation("io.kotest:kotest-runner-junit5-jvm:$kotestVersion") // for kotest framework
     testImplementation("io.kotest:kotest-assertions-core-jvm:$kotestVersion") // for kotest core jvm assertions

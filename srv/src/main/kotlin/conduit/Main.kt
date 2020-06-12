@@ -6,13 +6,32 @@ import conduit.repository.ConduitRepositoryImpl
 import conduit.repository.ConduitTransactionManagerImpl
 import conduit.repository.createDb
 import conduit.util.JWT
+import dev.nohus.autokonfig.*
+import dev.nohus.autokonfig.types.StringSetting
 import org.apache.logging.log4j.core.config.Configurator
 import org.http4k.server.Http4kServer
 import org.http4k.server.Jetty
 import org.http4k.server.asServer
 import org.slf4j.LoggerFactory
+import java.io.File
 
 fun main() {
+    File("/etc/conduit/app.conf")
+            .run {
+                if (exists())
+                    AutoKonfig
+                        .withConfigs(this)
+            }
+
+    AutoKonfig
+            .withEnvironmentVariables()
+            .withSystemProperties()
+
+    val env by StringSetting("none")
+    val source = AutoKonfig.getKeySource("env")
+    println("starting server with env = $env - source = $source")
+
+
     val server = startApp(conduit.config.local)
     server.block()
 }
