@@ -1,0 +1,42 @@
+GET http://localhost:9000/healthcheck
+
+###
+
+POST http://localhost:9000/api/users/login
+Accept: application/json
+
+{
+  "user":{
+    "email": "jake@jake.jake",
+    "password": "jakejake"
+  }
+}
+
+> {% client.global.set("auth_token", response.body.user.token); %}
+
+###
+
+POST http://localhost:9000/api/users
+Accept: application/json
+
+{
+  "user": {
+    "email": "jake@jake.jake",
+    "password": "jakejake",
+    "username": "johnjacob"
+  }
+}
+
+###
+
+GET http://localhost:9000/api/users/
+Accept: application/json
+Authorization: Token {{auth_token}}
+
+###
+
+GET http://localhost:9000/api/profiles/johnjacob
+Accept: application/json
+Authorization: Token {{auth_token}}
+
+###
