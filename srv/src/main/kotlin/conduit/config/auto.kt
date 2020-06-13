@@ -1,15 +1,14 @@
 package conduit.config
 
-import dev.nohus.autokonfig.types.Group
 import org.http4k.core.Method
 import org.http4k.filter.CorsPolicy
 
-val auto = AppConfig(
+val local = AppConfig(
     logConfig = "log4j2-local.yaml",
-    db = object : Group("db") {
-        val url by StringSetting()
-        val driver by StringSetting()
-    }.let {  DbConfig(url = it.url, driver = it.driver) },
+    db = DbConfig(
+        url = "jdbc:h2:~/conduit-db/conduit",
+        driver = "org.h2.Driver"
+    ),
     corsPolicy = CorsPolicy(
         origins = listOf("localhost:9000"),
         headers = listOf("content-type", "authorization"),

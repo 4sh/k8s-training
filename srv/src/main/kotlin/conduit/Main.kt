@@ -32,8 +32,10 @@ fun main(args:Array<String>) {
     val source = AutoKonfig.getKeySource("env")
     println("starting server with env = $env - source = $source")
 
+    val config = conduit.config.auto
+    println("db config: ${config.db}")
 
-    val server = startApp(conduit.config.local)
+    val server = startApp(config)
     server.block()
 }
 
