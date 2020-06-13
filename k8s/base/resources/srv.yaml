@@ -18,6 +18,9 @@ spec:
       containers:
         - name: app-srv
           image: europe-docker.pkg.dev/quatreapp/k8straining/myapp-srv-me
+          envFrom:
+            - configMapRef:
+                name: app-config
           resources:
             requests:
               cpu: "100m"

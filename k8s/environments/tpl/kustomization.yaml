@@ -3,6 +3,10 @@ kind: Kustomization
 namespace: 4sh-formation-@ME
 resources:
   - ../../base
+configMapGenerator:
+  - name: app-config
+    envs:
+      - application.conf
 patches:
   - path: patches/ingress.patch.json
     target:
