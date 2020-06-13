@@ -15,7 +15,7 @@ import org.http4k.server.asServer
 import org.slf4j.LoggerFactory
 import java.io.File
 
-fun main() {
+fun main(args:Array<String>) {
     File("/etc/conduit/app.conf")
             .run {
                 if (exists())
@@ -26,6 +26,7 @@ fun main() {
     AutoKonfig
             .withEnvironmentVariables()
             .withSystemProperties()
+            .withCommandLineArguments(args)
 
     val env by StringSetting("none")
     val source = AutoKonfig.getKeySource("env")
