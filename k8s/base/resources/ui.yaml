@@ -1,24 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-srv
-  namespace: 4sh-formation-@ME
+  name: app-ui
   labels:
-    app: app-srv
-    kind: app
+    app: app-ui
+    kind: ui
 spec:
   selector:
     matchLabels:
-      app: app-srv
+      app: app-ui
   replicas: 1
   template:
     metadata:
       labels:
-        app: app-srv
+        app: app-ui
     spec:
       containers:
-        - name: app-srv
-          image: europe-docker.pkg.dev/quatreapp/k8straining/myapp-srv-@ME
+        - name: app-ui
+          image: europe-docker.pkg.dev/quatreapp/k8straining/myapp-ui-me
           resources:
             requests:
               cpu: "100m"
@@ -28,24 +27,24 @@ spec:
               memory: "1000Mi"
           livenessProbe:
             httpGet:
-              path: /healthcheck
-              port: 9000
+              path: /
+              port: 80
             initialDelaySeconds: 10
             periodSeconds: 10
           ports:
-            - containerPort: 9000
+            - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: app-srv
+  name: app-ui
   namespace: 4sh-formation-@ME
 spec:
   selector:
-    app: app-srv
+    app: app-ui
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 9000
+      targetPort: 80
   type: ClusterIP
 ---

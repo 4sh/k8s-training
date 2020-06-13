@@ -1,0 +1,11 @@
+[
+{"op": "replace",
+ "path": "/spec/rules/0/host",
+ "value": "4sh-formation-xhn.quatre.app"},
+{"op": "replace",
+ "path": "/spec/tls/0/hosts/0",
+ "value": "4sh-formation-xhn.quatre.app"},
+{"op": "replace",
+ "path": "/spec/tls/0/secretName",
+ "value": "my-training-xhn-cert"}
+]
