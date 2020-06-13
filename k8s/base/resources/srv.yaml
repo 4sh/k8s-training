@@ -15,12 +15,19 @@ spec:
       labels:
         app: app-srv
     spec:
+      volumes:
+        - name: config
+          configMap:
+            name: app-config
       containers:
         - name: app-srv
-          image: europe-docker.pkg.dev/quatreapp/k8straining/myapp-srv-me
+          image: europe-docker.pkg.dev/quatreapp/k8straining/myapp-srv-@ENV
           envFrom:
             - configMapRef:
-                name: app-config
+                name: env-config
+          volumeMounts:
+            - mountPath: /etc/conduit
+              name: config
           resources:
             requests:
               cpu: "100m"

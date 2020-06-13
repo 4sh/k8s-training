@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -eu -o pipefail
+
+env=$1
+
+kustomize build environments/$env | sed s/@ENV/$env/g

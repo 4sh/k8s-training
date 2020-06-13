@@ -4,16 +4,9 @@ namespace: 4sh-formation-@ME
 resources:
   - ../../base
 configMapGenerator:
-  - name: app-config
+  - name: env-config
     envs:
-      - application.conf
-patches:
-  - path: patches/ingress.patch.json
-    target:
-      kind: Ingress
-      name: ingress
-images:
-  - name: europe-docker.pkg.dev/quatreapp/k8straining/myapp-ui-me
-    newName: europe-docker.pkg.dev/quatreapp/k8straining/myapp-ui-@ME
-  - name: europe-docker.pkg.dev/quatreapp/k8straining/myapp-srv-me
-    newName: europe-docker.pkg.dev/quatreapp/k8straining/myapp-srv-@ME
+      - env.conf
+  - name: app-config
+    files:
+      - app.conf
