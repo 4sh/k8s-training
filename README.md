@@ -28,14 +28,25 @@ docker push europe-docker.pkg.dev/quatreapp/k8straining/myapp-ui-$ME
 docker push europe-docker.pkg.dev/quatreapp/k8straining/myapp-srv-$ME
 ```
 
+## define your kustomize config
+
+copy env template:
+```
+cd k8s
+cp -R environments/tpl environments/$ME 
+```
+
+modify by replacing all @ME by your own trigram
+
 ## apply the kubernetes config
 
+in `k8s`:
 ```
-cat k8s/*.yaml | sed s/@ME/$ME/g | kubectl apply -f -
+kustomize build environments/$ME | k apply -f -
 ```
 
-## check after a minute:
+## check with logs
 
 ```
-open https://4sh-formation-$ME.quatre.app
+kubectl logs -f -l app=app-srv --all-containers=true
 ```
