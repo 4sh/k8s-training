@@ -1,7 +1,7 @@
 package conduit.repository
 
 import conduit.model.*
-import org.jetbrains.exposed.dao.EntityID
+import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.sql.*
 import org.joda.time.DateTime
 

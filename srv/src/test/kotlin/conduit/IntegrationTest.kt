@@ -9,11 +9,14 @@ import org.http4k.server.Http4kServer
 import org.jetbrains.exposed.sql.Database
 import org.slf4j.LoggerFactory
 import java.io.Closeable
+import java.sql.Connection
+import java.sql.DriverManager
 
 private val logger = LoggerFactory.getLogger("IntegrationTest")
 
 class App : Closeable {
     val db: Database
+    val connection:Connection
     private val server: Http4kServer
     val config: AppConfig = AppConfig(
         "log4j2.yaml",
@@ -28,21 +31,23 @@ class App : Closeable {
 
     init {
         server = startApp(config)
+        Class.forName(config.db.driver)
         db = Database.connect(config.db.url, driver = config.db.driver)
+        connection = DriverManager.getConnection(config.db.url, "", "")
     }
 
     fun resetDb() {
         val command = "SET REFERENTIAL_INTEGRITY FALSE;" +
                 getAllTables().joinToString("") { "TRUNCATE TABLE $it;" } +
                 "SET REFERENTIAL_INTEGRITY TRUE;"
-        val statement = db.connector().createStatement()
+        val statement = connection.createStatement()
 
         statement.execute(command)
         db.connector().commit()
     }
 
     private fun getAllTables(): MutableList<String> {
-        val statement = db.connector().createStatement()
+        val statement = connection.createStatement()
         val sqlResult = statement.executeQuery("SHOW TABLES")
         val result = mutableListOf<String>()
 

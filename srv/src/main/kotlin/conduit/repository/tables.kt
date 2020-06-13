@@ -1,10 +1,8 @@
 package conduit.repository
 
-import org.jetbrains.exposed.dao.IntIdTable
-import org.jetbrains.exposed.sql.Database
-import org.jetbrains.exposed.sql.ReferenceOption
-import org.jetbrains.exposed.sql.SchemaUtils
-import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.dao.id.IntIdTable
+import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.jodatime.datetime
 import org.jetbrains.exposed.sql.transactions.transaction
 
 object Users : IntIdTable("users") {
@@ -16,8 +14,9 @@ object Users : IntIdTable("users") {
 }
 
 object Following : Table("following") {
-    val sourceId = reference("source_id", Users, ReferenceOption.CASCADE).primaryKey(0)
-    val targetId = reference("target_id", Users, ReferenceOption.CASCADE).primaryKey(1)
+    val sourceId = reference("source_id", Users, ReferenceOption.CASCADE)
+    val targetId = reference("target_id", Users, ReferenceOption.CASCADE)
+    override val primaryKey = PrimaryKey(sourceId, targetId, name = "CustomPKConstraintName")
 }
 
 object Articles : IntIdTable("articles") {
@@ -27,7 +26,7 @@ object Articles : IntIdTable("articles") {
     val body = text("body")
     val createdAt = datetime("createdAt")
     val updatedAt = datetime("updatedAt")
-    val authorId = reference("author_id", Users).primaryKey()
+    val authorId = reference("author_id", Users)
 }
 
 object Tags : Table("tags") {

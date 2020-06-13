@@ -6,6 +6,8 @@ val http4kVersion = "3.196.0"
 val log4jVersion = "2.12.1"
 val jacksonVersion = "2.10.0"
 val autoKonfigVersion = "1.0.0"
+val exposedVersion = "0.20.1"
+val postgresqlVersion = "42.2.14"
 val jaxbVersion = "2.3.0"
 val kotestVersion = "4.0.5"
 
@@ -36,9 +38,12 @@ dependencies {
     implementation("org.http4k:http4k-server-jetty:$http4kVersion")
     implementation("org.http4k:http4k-format-jackson:$http4kVersion")
     implementation("org.http4k:http4k-client-apache:$http4kVersion")
-    implementation("org.jetbrains.exposed:exposed:0.13.6")
+    implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-jodatime:$exposedVersion")
     implementation("io.jsonwebtoken:jjwt:0.9.1")
-    implementation("com.h2database:h2:1.4.198")
+    implementation("com.h2database:h2:1.4.200")
     implementation("org.apache.logging.log4j:log4j-core:$log4jVersion")
     implementation("org.apache.logging.log4j:log4j-api:$log4jVersion")
     implementation("org.apache.logging.log4j:log4j-slf4j-impl:$log4jVersion")
@@ -46,6 +51,7 @@ dependencies {
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonVersion")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-joda:$jacksonVersion")
     implementation("dev.nohus:AutoKonfig:$autoKonfigVersion")
+    runtime("org.postgresql:postgresql:$postgresqlVersion")
 
     testImplementation("io.kotest:kotest-runner-junit5-jvm:$kotestVersion") // for kotest framework
     testImplementation("io.kotest:kotest-assertions-core-jvm:$kotestVersion") // for kotest core jvm assertions
