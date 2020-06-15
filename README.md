@@ -7,7 +7,7 @@ in `angular-realworld-example-app`
 see `Dockerfile`
 
 to build:
-`docker bulid -t myapp .`
+`docker build -t myapp .`
 
 to run:
 `docker run --rm -p 8888:80 myapp`
