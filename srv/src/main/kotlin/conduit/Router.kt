@@ -11,30 +11,32 @@ import org.http4k.lens.*
 import org.http4k.routing.RoutingHttpHandler
 import org.http4k.routing.bind
 import org.http4k.routing.routes
+import org.slf4j.Logger
 
 class Router(
-    val version:String,
-    val corsPolicy: CorsPolicy,
-    val jwt: JWT,
-    val login: LoginHandler,
-    val registerUser: RegisterUserHandler,
-    val getCurrentUser: GetCurrentUserHandler,
-    val updateCurrentUser: UpdateCurrentUserHandler,
-    val getProfile: GetProfileHandler,
-    val followUser: FollowUserHandler,
-    val unfollowUser: UnfollowUserHandler,
-    val createArticle: CreateArticleHandler,
-    val getArticles: GetArticlesHandler,
-    val createArticleComment: CreateArticleCommentHandler,
-    val getArticleComments: GetArticleCommentsHandler,
-    val deleteArticleComment: DeleteArticleCommentHandler,
-    val createArticleFavorite: CreateArticleFavoriteHandler,
-    val deleteArticleFavorite: DeleteArticleFavoriteHandler,
-    val deleteArticle: DeleteArticleHandler,
-    val getArticlesFeed: GetArticlesFeedHandler,
-    val getArticle: GetArticleHandler,
-    val updateArticle: UpdateArticleHandler,
-    val getTags: GetTagsHandler
+        val version: String,
+        val logger: Logger,
+        val corsPolicy: CorsPolicy,
+        val jwt: JWT,
+        val login: LoginHandler,
+        val registerUser: RegisterUserHandler,
+        val getCurrentUser: GetCurrentUserHandler,
+        val updateCurrentUser: UpdateCurrentUserHandler,
+        val getProfile: GetProfileHandler,
+        val followUser: FollowUserHandler,
+        val unfollowUser: UnfollowUserHandler,
+        val createArticle: CreateArticleHandler,
+        val getArticles: GetArticlesHandler,
+        val createArticleComment: CreateArticleCommentHandler,
+        val getArticleComments: GetArticleCommentsHandler,
+        val deleteArticleComment: DeleteArticleCommentHandler,
+        val createArticleFavorite: CreateArticleFavoriteHandler,
+        val deleteArticleFavorite: DeleteArticleFavoriteHandler,
+        val deleteArticle: DeleteArticleHandler,
+        val getArticlesFeed: GetArticlesFeedHandler,
+        val getArticle: GetArticleHandler,
+        val updateArticle: UpdateArticleHandler,
+        val getTags: GetTagsHandler
 ) {
     private val contexts = RequestContexts()
     private val tokenAuth = TokenAuth(jwt, contexts)
@@ -52,7 +54,7 @@ class Router(
             .then(
                 routes(
                     "/healthcheck" bind Method.GET to { Response(Status.OK) },
-                    "/api/version" bind Method.GET to { Response(Status.OK).body(version) },
+                    "/api/version" bind Method.GET to { logger.info("GET /api/version => $version"); Response(Status.OK).body(version) },
                     "/api/users" bind routes(
                         "/login" bind Method.POST to login(),
                         "/" bind routes(

@@ -68,6 +68,7 @@ fun startApp(version:String, config: AppConfig): Http4kServer {
 
     val app = Router(
         version,
+        logger,
         config.corsPolicy,
         jwt,
         loginHandler,
