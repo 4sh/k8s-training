@@ -13,6 +13,7 @@ import org.http4k.routing.bind
 import org.http4k.routing.routes
 
 class Router(
+    val version:String,
     val corsPolicy: CorsPolicy,
     val jwt: JWT,
     val login: LoginHandler,
@@ -51,6 +52,7 @@ class Router(
             .then(
                 routes(
                     "/healthcheck" bind Method.GET to { Response(Status.OK) },
+                    "/api/version" bind Method.GET to { Response(Status.OK).body(version) },
                     "/api/users" bind routes(
                         "/login" bind Method.POST to login(),
                         "/" bind routes(

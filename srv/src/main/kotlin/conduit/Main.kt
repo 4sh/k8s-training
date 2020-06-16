@@ -35,11 +35,11 @@ fun main(args:Array<String>) {
     val config = conduit.config.auto
     println("db config: ${config.db}")
 
-    val server = startApp(config)
+    val server = startApp("1.0.0", config)
     server.block()
 }
 
-fun startApp(config: AppConfig): Http4kServer {
+fun startApp(version:String, config: AppConfig): Http4kServer {
     Configurator.initialize(null, config.logConfig)
 
     val logger = LoggerFactory.getLogger("main")
@@ -70,6 +70,7 @@ fun startApp(config: AppConfig): Http4kServer {
     val getTags = GetTagsHandlerImpl(txManager)
 
     val app = Router(
+        version,
         config.corsPolicy,
         jwt,
         loginHandler,
