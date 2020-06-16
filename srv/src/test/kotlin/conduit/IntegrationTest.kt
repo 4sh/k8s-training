@@ -30,7 +30,7 @@ class App : Closeable {
     )
 
     init {
-        server = startApp(config)
+        server = startApp("integration", config)
         Class.forName(config.db.driver)
         db = Database.connect(config.db.url, driver = config.db.driver)
         connection = DriverManager.getConnection(config.db.url, "", "")
