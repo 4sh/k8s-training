@@ -35,7 +35,7 @@ fun main(args:Array<String>) {
     val config = conduit.config.auto
     println("db config: ${config.db}")
 
-    val server = startApp("1.0.0", config)
+    val server = startApp("1.0.0-db", config)
     server.block()
 }
 
