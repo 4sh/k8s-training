@@ -32,12 +32,11 @@ fun main(args:Array<String>) {
     val source = AutoKonfig.getKeySource("env")
     println("starting server with env = $env - source = $source")
 
-
-    val server = startApp(conduit.config.local)
+    val server = startApp("1.0.0", conduit.config.local)
     server.block()
 }
 
-fun startApp(config: AppConfig): Http4kServer {
+fun startApp(version:String, config: AppConfig): Http4kServer {
     Configurator.initialize(null, config.logConfig)
 
     val logger = LoggerFactory.getLogger("main")
@@ -68,6 +67,7 @@ fun startApp(config: AppConfig): Http4kServer {
     val getTags = GetTagsHandlerImpl(txManager)
 
     val app = Router(
+        version,
         config.corsPolicy,
         jwt,
         loginHandler,
