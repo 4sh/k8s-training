@@ -27,7 +27,7 @@ class App : Closeable {
     )
 
     init {
-        server = startApp(config)
+        server = startApp("integration", config)
         db = Database.connect(config.db.url, driver = config.db.driver)
     }
 

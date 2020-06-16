@@ -11,6 +11,8 @@ import io.mockk.mockk
 import org.http4k.core.Response
 
 fun getRouterToTest() = Router(
+    "test",
+    logger = mockk(relaxed = true),
     corsPolicy = mockk(relaxed = true),
     jwt = jwt,
     login = mockk(relaxed = true),
