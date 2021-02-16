@@ -13,7 +13,7 @@ patches:
       kind: Ingress
       name: ingress
 images:
-  - name: europe-docker.pkg.dev/quatreapp/k8straining/myapp-ui-me
-    newName: europe-docker.pkg.dev/quatreapp/k8straining/myapp-ui-@ME
-  - name: europe-docker.pkg.dev/quatreapp/k8straining/myapp-srv-me
-    newName: europe-docker.pkg.dev/quatreapp/k8straining/myapp-srv-@ME
+  - name: myapp-ui-me
+    newName: myapp-ui-@ME
+  - name: myapp-srv-me
+    newName: myapp-srv-@ME
