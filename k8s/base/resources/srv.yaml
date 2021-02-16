@@ -21,7 +21,8 @@ spec:
             name: app-config
       containers:
         - name: app-srv
-          image: europe-docker.pkg.dev/quatreapp/k8straining/myapp-srv-@ENV
+          image: myapp-srv-@ENV
+          imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
                 name: env-config

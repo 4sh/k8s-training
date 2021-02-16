@@ -4,13 +4,7 @@ metadata:
   name: ingress
   annotations:
     kubernetes.io/ingress.class: nginx
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    nginx.ingress.kubernetes.io/proxy-body-size: "20M"
 spec:
-  tls:
-    - hosts:
-        - "4sh-formation-@ENV.quatre.app"
-      secretName: my-training-@ENV-cert
   rules:
     - host: 4sh-formation-@ENV.quatre.app
       http:

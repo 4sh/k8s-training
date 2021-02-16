@@ -17,7 +17,8 @@ spec:
     spec:
       containers:
         - name: app-ui
-          image: europe-docker.pkg.dev/quatreapp/k8straining/myapp-ui-@ENV
+          image: myapp-ui-@ENV
+          imagePullPolicy: IfNotPresent
           resources:
             requests:
               cpu: "100m"
